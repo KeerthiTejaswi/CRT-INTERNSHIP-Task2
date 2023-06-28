@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Music Player</title>
+        <link rel="stylesheet" href="style2.css">
+        <script src="https://kit.fontawesome.com/70637eac2a.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+       <div class="container">
+        <div class="music">
+            <nav>
+                <h1><span style="color:green"><b>M</b></span><span style="color:red"><b>usi</b></span><span style="color:green"><b>c</b></span>
+                    <span style="color:red"><i class="fa-regular fa-heart"></i></span>
+                </h1>
+            </nav>
+            <img src="vinayaka1.jpeg" class="song-img">
+            <h1>Ekadantaya Vakratundaya</h1><br>
+            <p>Shankar Mahadevan</p>
+            <audio  id="song">
+                <source src="audio.mpeg" type="audio/mpeg">
+            </audio>
+            <input type="range" value="0" id="styling">
+            <div class="controls">
+                    <div><i class="fa-solid fa-backward"></i></div>
+                    <div onclick="playPause()"><i class="fa-solid fa-play" id="controlIcon"></i></div>
+                    <div><i class="fa-solid fa-forward"></i></div>
+            </div>
+
+        </div>
+
+       </div> 
+       <script>
+        let styling=document.getElementById("styling");
+        let song=document.getElementById("song");
+        let controlIcon=document.getElementById("controlIcon");
+        song.onloadedmetadata=function(){
+            styling.max=song.duration;
+            styling.value=song.currentTime;
+        }
+        function playPause(){
+            if(controlIcon.classList.contains("fa-pause")){
+                song.pause();
+                controlIcon.classList.remove("fa-pause");
+                controlIcon.classList.add("fa-play");
+            }
+            else {
+                song.play();
+                controlIcon.classList.add("fa-pause");
+                controlIcon.classList.remove("fa-play");
+            }
+        }
+        if(song.play()){
+            setInterval(()=>{
+                styling.value=song.currentTime;
+            },500);
+        }
+        styling.onchange=function(){
+            song.play();
+            song.currentTime=styling.value;
+            controlIcon.classList.add("fa-pause");
+            controlIcon.classList.remove("fa-play");
+        }
+       </script>  
+    </body>
+</html>
